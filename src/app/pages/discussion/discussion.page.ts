@@ -1023,7 +1023,7 @@ export class DiscussionPage implements OnInit {
   constructor( 
     private route:ActivatedRoute,
     private apiService:ApiService,
-    private auth:AuthService,
+    public auth:AuthService,
     private device: Device,
     private fileOpner: FileOpener,
     private nativeHTTP: HTTP, 

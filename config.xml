@@ -3,7 +3,7 @@
     <name>Finaqa</name>
     <description>App to help you with your financial needs.</description>
     <author email="nischaya.gq@gmail.com" href="nischaya.gq">DVsistems Team</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

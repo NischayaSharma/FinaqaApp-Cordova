@@ -83,7 +83,7 @@
       <ion-fab-button (click)="inputFile()">
         <ion-icon color="primary" style="font-size: x-large;" name="attach"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="sendMeetLink()" *ngIf="hasMeetings">
+      <ion-fab-button (click)="sendMeetLink()" *ngIf="hasMeetings && !auth.$isClient">
         <ion-icon color="primary" style="font-size: x-large;" name="alarm"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
