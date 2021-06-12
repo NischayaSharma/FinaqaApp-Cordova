@@ -1,0 +1,19 @@
+<app-header header="My Profile" defHref="/sidebar/tabs/tabs/answer" menu="true"></app-header>
+
+<ion-content>
+  <div class="backgroundCover">
+    <ion-avatar tappable (click)="inputFile()">
+      <ion-img [src]="photoUrl"></ion-img>
+    </ion-avatar>
+    <input ng2FileSelect id="fileInput" type="file" [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+  </div>
+  <div class="formContainer">
+    <app-form [formGroup]="profileForm" [formFields]="profileFormFields" labelColor="primary"></app-form>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-button style="--border-radius: 15px; margin-right: 2%; margin-left: 2%;" size="large" class="buttonText" size="large" type="submit" expand="block" (click)="submit()">Save</ion-button>
+  </ion-toolbar>
+</ion-footer>

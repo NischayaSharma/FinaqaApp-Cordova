@@ -1,0 +1,37 @@
+<app-header menu="false" header="{{user}} Login" defHref="/home"></app-header>
+
+<ion-content>
+
+  <div class="backgroundCover">
+    <ion-avatar>
+       <ion-img src="assets/ic_logo_512.png"></ion-img>
+    </ion-avatar>
+  </div>
+
+  <div style="width: 100%; text-align: center; color: var(--ion-color-primary);">
+    <h3>{{ responseMssg }}</h3>
+  </div>
+
+  <div class="screenCenter">
+    <span>
+      <div>
+        <app-form [formGroup]="loginForm" [formFields]="loginFormFields" labelColor="primary"></app-form>
+      </div>
+
+      <div class="buttonContainer">
+        <ion-button style="--border-radius: 15px; margin-bottom: 5%;" class="buttonText" size="large" [disabled]="!loginForm.valid" type="submit" expand="block" (click)="submit()">Login</ion-button>
+        <ion-button style="font-size: large" color="dark" class="buttonText" size="default" type="submit" expand="block" fill="clear" routerLink="/forgot-password">Forgot Password?</ion-button>
+      </div>
+
+    </span>
+  </div>
+
+</ion-content>
+
+<ion-footer *ngIf="client==true">
+  <a [routerLink]="['/register']" style="text-decoration: none;">
+    <ion-toolbar style="text-align: center;">
+        <span style="color: var(--ion-color-primary);">New to FinaQA?</span> Create Account
+    </ion-toolbar>
+  </a>
+</ion-footer>

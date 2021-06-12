@@ -1,0 +1,13 @@
+<app-header menu="false" defHref="/sidebar/tabs/tabs/answer" backButton="true" header="Contact Us"></app-header>
+
+<ion-content>
+  <div class="screenCenter">
+    <app-form [formGroup]="contactUsForm" [formFields]="contactUsFormFields" labelColor="primary" ></app-form>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button style="--border-radius: 15px; margin-left: 2%; margin-right: 2%;" class="buttonText" type="submit" expand="block" size="large" (click)="submit()">Send</ion-button>
+  </ion-toolbar>
+</ion-footer>

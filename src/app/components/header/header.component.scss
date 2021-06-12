@@ -1,0 +1,22 @@
+ion-thumbnail {
+    margin-top: 2%;
+    padding-left: 2%;
+    width:15%;
+    height:auto !important;
+    ion-img {
+        width:auto !important;
+        height:auto !important;
+    }
+}
+ion-title > ion-thumbnail {
+    margin-top: 2%;
+    padding-left: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    width:20%;
+    height:auto !important;
+    ion-img {
+        width:auto !important;
+        height:auto !important;
+    }
+}

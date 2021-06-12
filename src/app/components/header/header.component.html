@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" *ngIf="defHref; else elseBlock">
+      <ion-back-button [defaultHref]="defHref"></ion-back-button>
+    </ion-buttons>
+    <ng-template #elseBlock>
+      <ion-thumbnail slot="start" >
+          <ion-img src="/assets/ic_white_logo.png" alt="Logo"></ion-img>
+      </ion-thumbnail>
+    </ng-template>
+    <ion-title mode="ios">
+      <ion-thumbnail *ngIf="!header">
+        <ion-img src="/assets/ic_white_logo.png" alt="Logo"></ion-img>
+      </ion-thumbnail>
+      {{ header }}
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="menu == 'true'">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

@@ -1,0 +1,48 @@
+.paymentHeader {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.informationBar {
+    display: flex;
+}
+.amountLabel, .amount {
+    width: 100%;
+    margin: 1rem;
+    font-size: larger;
+}
+.amount {
+    color: var(--ion-color-dark);
+}
+
+.detailCard {
+    color: var(--ion-color-dark)
+}
+.detailHeader {
+    display: flex;
+    margin: 1rem;
+    font-size: larger;
+}
+.detailAmount {
+    width: 100%;
+}
+.calenderIcon {
+    font-size: large;
+}
+.icon {
+    margin-right: 0.5rem;
+}
+.iconLabel {
+    font-size: larger;
+}
+.date {
+    width: 100%;
+}
+.divider {
+    background-color: var(--ion-color-dark);
+    width: 95%;
+    height: 1px;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}

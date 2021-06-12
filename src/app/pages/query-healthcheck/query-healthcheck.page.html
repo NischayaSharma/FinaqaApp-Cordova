@@ -1,0 +1,61 @@
+<app-header defHref="/sidebar/tabs"></app-header>
+
+<ion-content class="content">
+  <div class='contentCentre'>
+
+    <ion-card class="contentCard" (click)="goingTo('ANS')" [routerLink]="auth.$isLoggedIn ? '/sidebar/ask-query' : '/login'">
+      <div class="card">
+        <ion-thumbnail>
+          <ion-img src="assets/ic_question_answer_100.png"></ion-img>
+        </ion-thumbnail>
+        <div class="card-content">
+          <ion-card-header>
+            <ion-card-title>Questions and Answers</ion-card-title>
+            <ion-icon name="chevron-forward-outline" style="font-size: 210%;"></ion-icon>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>Get the best solution for your question</ion-card-subtitle>
+          </ion-card-content>
+        </div>
+      </div>
+    </ion-card>
+
+    <div class="line"></div>
+
+    <ion-card class="contentCard" (click)="goingTo('MEET')" [routerLink]="auth.$isLoggedIn ? '/sidebar/ask-query' : '/login'">
+      <div class="card">
+        <ion-thumbnail>
+          <ion-img src="assets/meeting_icon.png"></ion-img>
+        </ion-thumbnail>
+        <div class="card-content">
+          <ion-card-header>
+            <ion-card-title>Questions and Meetings</ion-card-title>
+            <ion-icon name="chevron-forward-outline" style="font-size: 210%;"></ion-icon>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>Submit questions and have a meeting</ion-card-subtitle>
+          </ion-card-content>
+        </div>
+      </div>
+    </ion-card>
+
+    <div class="line"></div>
+
+    <ion-card class="contentCard" (click)="goingTo('FHC')" [routerLink]="auth.$isLoggedIn ? '/sidebar/healthcheck' : '/login'" >
+      <div class="card">
+        <ion-thumbnail>
+          <ion-img src="assets/ic_money_black_100.png"></ion-img>
+        </ion-thumbnail>
+        <div class="card-content">
+          <ion-card-header>
+            <ion-card-title>Financial Health Check</ion-card-title>
+            <ion-icon name="chevron-forward-outline" style="font-size: 210%;"></ion-icon>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>Diagnostic tool to manage your finances</ion-card-subtitle>
+          </ion-card-content>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

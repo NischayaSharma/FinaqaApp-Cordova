@@ -1,0 +1,10 @@
+<app-header header="Ask Question" defHref="/sidebar/tabs/tabs/query-healthcheck"></app-header>
+
+<ion-content>
+  <div class="form">
+    <app-form [formGroup]="askQuery" [formFields]="askQueryFields" labelColor="primary"></app-form>
+  </div>
+  <div class="buttonContainer">
+    <ion-button style="--border-radius: 15px;" class="buttonText" size="large" expand="block" [disabled]="!askQuery.valid" (click)="submit()">Next</ion-button>
+  </div>
+</ion-content>

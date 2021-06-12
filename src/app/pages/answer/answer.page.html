@@ -1,0 +1,126 @@
+<app-header header="Answers" menu="true"></app-header>
+
+<ion-content *ngIf="auth.$isLoggedIn; else elseBlock">
+  <div *ngIf="dataLoaded">
+    <ion-card *ngFor=" let card of answerCards">
+
+      <ion-card-header (click)="queryClicked(card)">
+        <ion-card-subtitle *ngIf="!auth.$isClient" > {{ card.subCategory }} </ion-card-subtitle>
+        <div style="display: flex; color: var(--ion-color-dark);">
+          <ion-card-title style="width: 100%; font-weight: bold; font-size: 1.2rem; margin-top: auto;">{{ card.title }}</ion-card-title>
+          <ion-icon name="chevron-forward-outline" style="font-size: 210%; color: #4491ad;"></ion-icon>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="content">
+          <div class="dateConsultantBar" style="display: flex;">
+
+            <div style="width: 100%; display: flex;">
+              <div class="icon">
+                <ion-icon name="calendar-outline" class="ion-icon"></ion-icon>
+              </div>
+              <div class="date-content">
+                {{ card.date }}
+              </div>
+            </div>
+
+            <div style="width: 100%; display: flex;">
+              <div class="icon">
+                <ion-icon name="person-outline" class="ion-icon"></ion-icon>
+              </div>
+              <div class="date-content">
+                {{ card.consultant }}
+              </div>
+            </div>
+          </div>
+
+          <div class="question" style="margin-top: 2%;" >
+            {{ checkUrl(card.question) }}
+          </div>
+
+        </div>
+      </ion-card-content>
+      <ion-button (click)="provideFeedback(card)" expand="block" fill="clear" *ngIf="auth.$isClient && card.feedback && card.closed">Provide Feedback</ion-button>
+      <div style="display: flex;" *ngIf="!card.closed">
+        <div style="width: 100%;">
+          <ion-button expand="block" fill="clear" *ngIf="card.closeAllowed" (click)="closeQuery(card)">Close</ion-button>
+          <ion-button expand="block" fill="clear" *ngIf="card.skipAllowed" (click)="skip(card)">Skip</ion-button>
+        </div>
+        <div style="width: 100%;">
+          <ion-button expand="block" fill="clear" *ngIf="card.myTurn" (click)="queryClicked(card)">Reply</ion-button>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!dataLoaded">
+    <ion-card *ngFor=" let card of [0,1,2,3,4,5,6,7,8,9,10]">
+    
+      <ion-card-header (click)="queryClicked(card)">
+        <ion-card-subtitle *ngIf="!auth.$isClient">
+          <ion-skeleton-text animated ></ion-skeleton-text>
+        </ion-card-subtitle>
+        <div style="display: flex; color: var(--ion-color-dark);">
+          <ion-card-title style="width: 100%; font-weight: bold; font-size: 1.2rem; margin-top: auto;">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-card-title>
+          <ion-icon name="chevron-forward-outline" style="font-size: 210%; color: #4491ad;"></ion-icon>
+        </div>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <div class="content">
+          <div class="dateConsultantBar" style="display: flex;">
+    
+            <div style="width: 100%; display: flex;">
+              <div class="icon">
+                <ion-icon name="calendar-outline" class="ion-icon"></ion-icon>
+              </div>
+              <div class="date-content">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </div>
+    
+            <div style="width: 100%; display: flex;">
+              <div class="icon">
+                <ion-icon name="person-outline" class="ion-icon"></ion-icon>
+              </div>
+              <div class="date-content">
+                <ion-skeleton-text animated ></ion-skeleton-text>
+              </div>
+            </div>
+          </div>
+    
+          <div class="question" style="margin-top: 2%;">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </div>
+    
+        </div>
+      </ion-card-content>
+      <!-- <ion-button (click)="provideFeedback(card)" expand="block" fill="clear" *ngIf="auth.$isClient && card.feedback && card.closed">Provide Feedback</ion-button> -->
+      <div style="display: flex;">
+        <div style="width: 100%;">
+          <ion-button expand="block" fill="clear" >
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-button>
+          <!-- <ion-button expand="block" fill="clear" >Skip</ion-button> -->
+        </div>
+        <div style="width: 100%;">
+          <ion-button expand="block" fill="clear">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ng-template #elseBlock>
+  <ion-content >
+      <div class="contentCentre" style="text-align: center;">
+        <h2 style="color: var(--ion-color-dark);">Sign-Up and Ask your first query for free </h2>
+        <ion-button size="large" fill="clear" class="buttonText" routerLink="/login" > Click here to Login/Register </ion-button>
+      </div>
+  </ion-content>
+</ng-template>

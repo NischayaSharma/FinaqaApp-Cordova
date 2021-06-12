@@ -1,0 +1,56 @@
+<app-header defHref="/sidebar/healthcheck-loan" header="Financial Health Check"></app-header>
+<ion-content>
+  <div class="asset-table">
+    <table>
+      <tr class="first-child">
+        <td class="title">
+          Current Liquid Assets
+        </td>
+        <td class="amount">
+          {{ healthcheckData.assets.cash }}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          Equity Assets
+        </td>
+        <td class="amount">
+          {{ healthcheckData.assets.equity }}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          Debt Assets
+        </td>
+        <td class="amount">
+          {{ healthcheckData.assets.debt }}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          Real Estate Assets
+        </td>
+        <td class="amount">
+          {{ healthcheckData.assets.realEstate }}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          Precious Metal Assets
+        </td>
+        <td class="amount">
+          {{ healthcheckData.assets.preciousMetals }}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <ion-card style="text-align: center;" *ngIf="healthcheckData.loan.length>0">
+    <h3 style="color: var(--ion-color-primary);">Loan</h3>
+  </ion-card>
+  <app-healthcheck-loan-table [deleteBtn]="false" [loanData]="healthcheckData.loan"></app-healthcheck-loan-table>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button style="--border-radius: 15px;" expand="block" class="buttonText" (click)="save()"> Save </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,45 @@
+.sup {
+  /* Specified in % so that the sup/sup is the right size relative to the surrounding text */
+  font-size: 0.75rem;
+
+  /* Where the magic happens: makes all browsers position the sup/sup properly, relative to the surrounding text */
+  position: relative;
+
+  /* Note that if you're using Eric Meyer's reset.css, this is already set and you can remove this rule */
+  vertical-align: baseline;
+
+  /* Move the superscripted text up */
+  top: -0.25em;
+}
+#fileInput {
+    display: none;
+}
+.fileInput{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2%;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+td {
+    vertical-align: middle;
+    padding-bottom: 5%;
+}
+.name {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 50%;
+}
+.size {
+    font-size: small;
+    text-align: right;
+}
+.formField{
+    margin-bottom: 2%;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+}

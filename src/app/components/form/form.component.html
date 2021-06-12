@@ -1,0 +1,95 @@
+<form [formGroup]="formGroup">
+  <div>
+    <ion-item mode='md' class="formField" *ngFor="let field of formFields">
+
+      <ion-grid style=" --ion-grid-width: 100%;" fixed>
+        <ion-row>
+
+          <ion-col *ngIf="field.icon" style="display: flex;" size="2">
+            <ion-icon style="font-size: x-large; margin: auto;"  [name]="field.icon"></ion-icon>
+          </ion-col>
+
+          <ion-col>
+            <ion-label style="display: flex;" [position]="field.labelPosition" *ngIf="field.inputType!='file'" [color]="labelColor">
+              {{ field.label }}<p class="sup" *ngIf="field.required">&nbsp;*</p>
+            </ion-label>
+
+            <ng-container [ngSwitch]="field.type">
+
+            <!-- Handling File Input -->
+            <div *ngIf="field.inputType=='file'; else elseBlock" class="fileInput">
+              <input ng2FileSelect id="fileInput" *ngSwitchCase="'input'" type="file" [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+              <table class="table">
+                <tbody>
+                  <tr *ngFor="let item of uploader.queue">
+                    <td class="name">
+                      {{ item?.file?.name }}
+                    </td>
+                    <td class="size">
+                      {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+                    </td>
+                    <td class="remove">
+                      <ion-button class="buttonText" (click)="item.remove()" expand="block" fill="clear">
+                        <ion-icon name="remove-circle" style="font-size: xx-large;"></ion-icon>
+                      </ion-button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ion-button class="buttonText" style="--border-radius: 15px;" (click)="inputFile()" size="large" expand="block">
+                Add File
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </div>
+
+            <!-- Handling Text/Number/Email/Password Inputs -->
+            <ng-template #elseBlock>
+                <ion-input [placeholder]="field.placeholder" autocorrect="on" autocomplete="on" *ngSwitchCase="'input'" [formControlName]="field.controlName" [type]="getType(field.inputType)"></ion-input>
+            </ng-template>
+
+            <!-- Handling Date Inputs -->
+            <ion-datetime style="--padding-start:0; " [min]="field.minDateTime" [max]="field.maxDateTime" *ngSwitchCase="'date'" [placeholder]="field.placeholder" [formControlName]="field.controlName" displayFormat="DD MMM YYYY">
+            </ion-datetime>
+
+            <!-- Handling Dropdown Inputs -->
+            <ion-select mode="ios" style="min-width: 100%; --padding-start:0;" *ngSwitchCase="'dropdown'" [formControlName]="field.controlName" [interfaceOptions]="field.interfaceOptions" [interface]="field.interface">
+              <ion-select-option *ngFor="let item of field.data" [value]="item.value">{{ item.text }}</ion-select-option>
+            </ion-select>
+
+            <!-- Handling Dropdown Inputs -->
+            <ion-select mode="ios" style="min-width: 100%; --padding-start:0;" *ngSwitchCase="'subDropdown'" [formControlName]="field.controlName" [interfaceOptions]="field.interfaceOptions" [interface]="field.interface">
+              <ion-select-option *ngFor="let item of subValue(field.parentControlName, field.data)" [value]="item.value">{{item.text }}</ion-select-option>
+            </ion-select>
+
+            <!-- Handling Text Area Inputs -->
+            <ion-textarea style="height: fit-content; max-height: 100%;" *ngSwitchCase="'textarea'" [placeholder]="field.placeholder" enterkeyhint="enter" autoGrow="true" [formControlName]="field.controlName">
+            </ion-textarea>
+
+            <span *ngSwitchDefault> ERROR </span>
+
+            </ng-container>
+          </ion-col>
+
+          <ion-col tappable (click)="infoPressed(field)" *ngIf="field.help" size="1.25" style="display: flex;">
+            <ion-icon style="font-size:x-large; margin-left: auto; margin-top: auto; margin-bottom: auto;" name="information-circle-outline"></ion-icon>
+          </ion-col>
+          <ion-col tappable (click)='hideShowPassword()' *ngIf="field.inputType=='password'" size="1.25" style="display: flex;">
+            <ion-icon style="font-size:x-large; margin-left: auto; margin-top: auto; margin-bottom: auto;" [name]="passwordIcon"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div *ngIf="f(field.controlName).touched && f(field.controlName).invalid">
+              <div *ngIf="f(field.controlName).errors.required">{{ field.label }} is required.</div>
+              <div *ngIf="f(field.controlName).errors.pattern">Please, enter valid {{ field.label }}.</div>
+              <div *ngIf="f(field.controlName).errors.email">Please, enter valid {{ field.label }}.</div>
+              <div *ngIf="f(field.controlName).errors.number">Please, enter valid {{ field.label }}.</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item>
+    
+  </div>
+</form>

@@ -1,0 +1,114 @@
+<app-header header="Discussion" defHref="/sidebar/tabs/tabs/answer"></app-header>
+
+<ion-content>
+  <div *ngFor="let message of messages" class="content">
+
+    <div [class]=" message.isMyReply? 'chatUser':'chatCons'" >
+      {{ checkUrl(message.answerText)[0] }} 
+      <a style="color: white;" *ngIf="checkUrl(message.answerText).length > 1"
+        [href]="checkUrl(message.answerText)[1]">{{checkUrl(message.answerText)[1]}}</a>
+    </div>
+
+    <div *ngIf=" message.meetings != null">
+      {{ setMeeting(message.meetings) }}
+      <ion-grid fixed="true" style="width: 100%;">
+
+        <ion-row class="header">
+          <ion-col class="date"> Date </ion-col>
+          <ion-col class="time"> Time </ion-col>
+          <ion-col class="duration"> Duration </ion-col>
+        </ion-row>
+
+        <ion-row *ngFor="let meeting of message.meetings">
+          <ion-col class="date"> {{ formatDate(meeting.meetingDate) }} </ion-col>
+          <ion-col class="time"> {{ meeting.meetingStartTime }} </ion-col>
+          <ion-col class="duration"> {{ meeting.meetingDuration }} mins </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+
+
+    <div *ngIf=" message.docs != null">
+      <div (click)="download(doc.docFullPath)" [class]=" message.isMyReply? 'docUser':'docCons'"
+        *ngFor="let doc of message.docs">
+        <ion-icon style="font-size: large;" name="attach-outline" color="dark"></ion-icon>{{ doc.docTitle }}
+      </div>
+    </div>
+
+    <div [class]=" message.isMyReply? 'timeUser':'timeCons'">
+      {{ formatTime(message.lastUpdated) }}
+    </div>
+
+    <!--
+      When Back-End provides the name of the consultant do the following:
+        1. Move the Time Div above the chat div.
+        2. Swap all the top and bottom margins in the timeUser and timeCons class in the scss file with each other.
+        3. Uncomment the Name Div from below.
+    -->
+
+    <!-- <div [class]=" message.isMyReply? 'nameUser':'nameCons'">
+      {{ message.isMyReply? 'username' : 'consultant' }}
+    </div> -->
+
+  </div>
+  <div slot="fixed" class="attachment" *ngIf="uploader.queue.length>0">
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td class="name">
+            {{ item?.file?.name }}
+          </td>
+          <td class="size">
+            {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+          </td>
+          <td class="remove" align="right">
+            <ion-button class="buttonText" (click)="item.remove()" fill="clear">
+              <ion-icon name="remove-circle" style="font-size: xx-large;"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isMyReplyTurn && !isClosed">
+    <ion-fab-button>
+      <ion-icon style="font-size: x-large;" name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button (click)="inputFile()">
+        <ion-icon style="font-size: x-large;" name="attach"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="sendMeetLink()" *ngIf="hasMeetings">
+        <ion-icon style="font-size: x-large;" name="alarm"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+
+<ion-footer *ngIf="isMyReplyTurn && !isClosed">
+  <input ng2FileSelect id="fileInput" type="file" [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="inputFile()" size="large" class="buttonText">
+        <ion-icon name="attach-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item style="--border-color: var(--ion-color-primary); margin-bottom: 3%; --padding-start: 0;">
+      <ion-input [(ngModel)]="reply"></ion-input>
+    </ion-item>
+    <ion-buttons slot="end">
+      <ion-button size="large" class="buttonText" (click)="send()">
+        <ion-icon name="send-outline" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="isClosed">
+  <ion-toolbar style="text-align: center;">
+    This Question is Closed
+  </ion-toolbar>
+</ion-footer>

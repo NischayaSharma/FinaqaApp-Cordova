@@ -1,0 +1,7 @@
+<ion-content>
+  <div class="content">
+    <div style="margin-bottom: 13%;">Please Rate Your Feedback</div>
+    <ionic5-star-rating #rating (ratingChanged)="logRatingChange($event)" activeColor="#ffcb00" fontSize="xx-large" > </ionic5-star-rating>
+    <ion-button style="margin-top: 10%; --border-radius: 15px;"  (click)="submitFeedback()" expand="block" class="buttonText" >Rate Now</ion-button>
+  </div>
+</ion-content>

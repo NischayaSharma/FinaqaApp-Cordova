@@ -1,0 +1,80 @@
+<app-header header="Choose Time Slot" defHref="/sidebar/ask-query" menu="false"></app-header>
+<ion-content>
+    <div class="header">
+        <div class="selectTimeSlot">
+            <div class="timeSlotLbl">
+                Time Slots:
+            </div>
+
+            <div class="timeSlotLength">
+                <p class="durationLbl">Duration</p>
+                <ion-select icon="green" mode="ios" interface="action-sheet" class="durationDropdown" [(ngModel)]="durationVal">
+                    <ion-select-option *ngFor="let item of duration" [value]="item.value"> {{ item.text }}</ion-select-option>
+                </ion-select>
+            </div>
+        </div>
+
+        <div class="note">
+            1. The cost will depend upon the duration of the meeting.<br>2. Cost for 30 minutes is Rs.200 /-.<br>3. You must select 3 Meeting Time Slots
+        </div>
+    </div>
+
+    <div class="timeSlotsList" >
+        <ion-card class="timeSlotCard" *ngFor="let slot of slotList">
+            <div class="number">
+                <span>{{ slot.index }}</span>
+            </div>
+
+            <div class="timeIconContainer"><ion-icon class="timeIcon" name="stopwatch-outline"></ion-icon></div>
+
+            <div class="date">
+                <div style="width: 100%; display: flex;">
+                    <div class="icon">
+                        <ion-icon name="calendar-outline" class="ion-icon"></ion-icon>
+                    </div>
+                    <div class="date-content">
+                        Date
+                    </div>
+                </div>
+                <div class="dateSelect">
+                    <ion-datetime [min]="today" max="2023" [(ngModel)]="slot.meetings.meetingDate" placeholder="Enter Date" mode="ios" displayFormat="DD MMM YYYY"></ion-datetime>
+                </div>
+            </div>
+
+            <div class="time">
+                <div style="width: 100%; display: flex;">
+                    <div class="icon">
+                        <ion-icon name="alarm-outline" class="ion-icon"></ion-icon>
+                    </div>
+                    <div class="date-content">
+                        Time
+                    </div>
+                </div>
+                <div class="dateSelect">
+                    <ion-datetime [min]="minTime" [max]="maxTime" [(ngModel)]="slot.meetings.meetingTime" placeholder="Enter Time" mode="ios" displayFormat="HH:mm"></ion-datetime>
+                </div>
+            </div>
+
+            <div class="trash">
+                <ion-button fill="clear" (click)="deleteTime(slot)">
+                    <ion-icon class="trashIcon" name="trash-outline"></ion-icon>
+                </ion-button>
+            </div>
+        </ion-card>
+    </div>
+
+    <div class="addTimeContainer" slot="fixed" *ngIf="durationVal!='A' && slotList.length<=2">
+        <div class="addTime">
+            <ion-button shape="round" expand="block" class="buttonText" (click)="addTime()">
+                <ion-icon name="alarm-outline" class="addTimeIcon"></ion-icon>
+                Add Time
+            </ion-button>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-button [disabled]="slotList.length<=2" class="buttonText" expand="block" style="font-size: larger; --border-radius: 15px; margin-left: 2%; margin-right: 2%;" (click)="submit()">Submit Query</ion-button>
+    </ion-toolbar>
+</ion-footer>

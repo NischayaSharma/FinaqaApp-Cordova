@@ -1,0 +1,4 @@
+<ion-content>
+  <app-form [formFields]="formFields" [formGroup]="setMeetingForm" labelColor="primary"></app-form>
+  <ion-button [disabled]="!setMeetingForm.valid" class="buttonText" size="large" expand="block" style=" --border-radius: 15px; margin-top: 2%;" (click)="sendLink()">Send Link</ion-button>
+</ion-content>

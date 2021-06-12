@@ -1,0 +1,25 @@
+span {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.screenCenter {
+    display: flex;
+    align-items: center;
+}
+.backgroundCover {
+    display: flex;
+    height: 30%;
+    align-items: center;
+}
+ion-avatar {
+    width:30%;
+    height: auto;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    ion-img {
+        width:auto !important;
+        height:auto !important;
+    }
+}

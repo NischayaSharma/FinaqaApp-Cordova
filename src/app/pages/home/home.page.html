@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar>
+    <ion-button color="dark" class="buttonText" fill="clear" slot="end" (click)="consultantLoginClicked()" routerLink="/login" ><span style="border-bottom: 1px solid var(--ion-color-dark); padding-bottom: 3px;"> Consultant Login</span></ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class='contentCentre'>
+    <figure>
+      <div class="figure">
+        <ion-avatar>
+          <ion-img src="assets/ic_logo_512.png"></ion-img>
+        </ion-avatar>
+      </div>
+      <figcaption>Money Matters</figcaption>
+    </figure>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border" >
+  <ion-toolbar>
+
+    <div style="display: flex;">
+      <div routerLink="/sidebar/tabs/tabs/query" class="btmBtns" style="border-right: 1px solid var(--ion-color-dark);">
+        <ion-label>Get Started</ion-label>
+      </div>
+      <div (click)="clientLoginClicked()"  routerLink="/login" class="btmBtns" >
+        <ion-label>Client Login</ion-label>
+      </div>
+    </div>
+
+  </ion-toolbar>
+</ion-footer>

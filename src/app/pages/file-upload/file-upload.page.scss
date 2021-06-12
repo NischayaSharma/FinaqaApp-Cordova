@@ -1,0 +1,34 @@
+ion-content {
+    --padding-start:2%;
+    --padding-end:2%;
+}
+#fileInput {
+    display: none;
+}
+.fileInput{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2%;
+}
+table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+td {
+    vertical-align: middle;
+    padding-bottom: 5%;
+}
+.name {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 50%;
+}
+.size {
+    text-align: right;
+}
+.formField{
+    margin-bottom: 2%;
+}

@@ -1,0 +1,11 @@
+<app-header header="Bank Details" defHref="/sidebar/tabs/tabs/answer" menu="true" ></app-header>
+
+<ion-content>
+  <div class="container">
+    <app-form [formFields]="bankDetailsFields" [formGroup]="bankDetailsForm" labelColor="primary"></app-form>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button style="--border-radius: 15px; margin-left: 2%; margin-right: 2%;" [disabled]="!bankDetailsForm.valid" (click)="submit()" size="large" expand="block" class="buttonText">Save</ion-button>
+</ion-footer>

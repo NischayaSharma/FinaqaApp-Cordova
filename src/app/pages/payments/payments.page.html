@@ -1,0 +1,18 @@
+<app-header header="Payments" menu="true"></app-header>
+
+<ion-content *ngIf="auth.$isLoggedIn; else elseBlock">
+    <app-client-payment *ngIf="auth.$isClient" [noPayments]="noPayments" [payments]="clientPayments"></app-client-payment>
+    <app-consultant-payment *ngIf="!auth.$isClient" [noPayments]="noPayments" [payments]="consPayments"></app-consultant-payment>
+    <div slot="fixed" class="contentCentre" style="text-align: center; width: 100%;" *ngIf="noPayments">
+        <h2 style="color: var(--ion-color-dark);">No Payments made yet</h2>
+    </div>
+</ion-content>
+<ng-template #elseBlock>
+    <ion-content>
+        <div class="contentCentre" style="text-align: center;">
+            <h2 style="color: var(--ion-color-dark);">Sign-Up and Ask your first query for free </h2>
+            <ion-button size="large" fill="clear" class="buttonText" routerLink="/login"> Click here to Login/Register
+            </ion-button>
+        </div>
+    </ion-content>
+</ng-template>

@@ -1,0 +1,113 @@
+.content {
+    padding-top: 2%;
+}
+
+#fileInput {
+    display: none;
+}
+.nameUser, .nameCons {
+    width:100%;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+.nameUser {
+    text-align: end;
+}
+.chatUser {
+    margin-left:auto;
+    background-color: var(--ion-color-primary);
+    border-radius: 22px 15px 5px 22px;
+}
+.chatCons, .chatUser{
+    width: fit-content;
+    max-width: 75%;
+    padding: 2%;
+    color: white;
+    text-align : justify;
+}
+.chatCons {
+    background-color: #00b3b7;
+    border-radius: 15px 22px 22px 5px;
+
+}
+.meeting {
+    margin-top: 0.10rem;
+    width: 100%;
+    padding: 2%;
+    color: var(--ion-color-dark);
+    margin-left:auto;
+    border-radius: 22px 5px 5px 22px;
+}
+.header{
+    font-weight: bold;
+}
+.date, .duration, .time {
+    white-space: nowrap;
+}
+.date {
+    min-width: 40%;
+}
+.time {
+    min-width: 20%;
+}
+.duration {
+    min-width: 20%;
+}
+.docUser {
+    margin-left:auto;
+    border-radius: 22px 5px 15px 22px;
+}
+.docCons, .docUser{
+    margin-top: 0.10rem;    
+    width: fit-content;
+    // max-width: 75%;
+    padding: 2%;
+    color: var(--ion-color-dark);
+    text-align : justify;
+    text-decoration: underline;
+    border-radius: 5px 22px 22px 15px;
+}
+.timeUser, .timeCons {
+    width: 100%;
+    white-space: nowrap;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+.timeUser {
+    text-align: end;
+}
+ion-content{
+    --padding-end: 3%;
+    --padding-start: 3%;
+}
+.attachment {
+    bottom: 0;
+    // background-color: blue;
+    width: 100%;
+    // height: 30px;
+    border-top: var(--ion-color-primary) solid 2px;
+    border-right: var(--ion-color-primary) solid 2px;
+    border-left: var(--ion-color-primary) solid 2px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+}
+td {
+    vertical-align: middle;
+    padding-bottom: 5%;
+}
+.name {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 50%;
+}
+.size {
+    text-align: right;
+}

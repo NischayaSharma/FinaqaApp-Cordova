@@ -1,0 +1,50 @@
+<app-header header="File-Upload" defHref="/sidebar/ask-query" menu="false"></app-header>
+
+<ion-content>
+
+  <div class="fileInput">
+    <input ng2FileSelect  id="fileInput" type="file" [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td class="name">
+            {{ item?.file?.name }}
+          </td>
+          <td class="size">
+            {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+          </td>
+          <td class="remove" align="right">
+            <ion-button class="buttonText" (click)="item.remove()" fill="clear">
+              <ion-icon name="remove-circle" style="font-size: xx-large;"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ion-button style="--border-radius: 15px;" class="buttonText" (click)="inputFile()" expand="block">
+      Add File
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="inputFile()">
+      <ion-icon name="share"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div style="display: flex; margin-left: 2%; margin-right: 2%;">
+      <div style="width: 100%;">
+        <ion-button style="--border-radius: 15px; margin-left: 2%;" (click)="submit(true)" expand="block" fill="outline" class="buttonText">Skip</ion-button>
+      </div>
+      <div style="width: 100%;">
+        <ion-button style="--border-radius: 15px; margin-right: 2%;" [disabled]="getFiles().length==0" expand="block" class="buttonText" (click)="submit(false)">Next</ion-button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

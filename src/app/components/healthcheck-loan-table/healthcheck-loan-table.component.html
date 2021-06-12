@@ -1,0 +1,44 @@
+<!-- <ng-template *ngIf="loanData.length > 0"> -->
+  <div *ngFor="let item of loanData" style="border: 2px solid #d1d1d1; width: 100%;padding:2%; margin-bottom: 3%;">
+    <div class="card-header">
+      <div style="width: 100%; margin-top: auto; margin-bottom: auto;">
+        {{loanType[item.loanType]}}
+      </div>
+      <ion-button *ngIf="deleteBtn" fill="outline" size="small" (click)="delete(item)" >Delete</ion-button>
+    </div>
+    <table>
+      <tr class="first-child">
+        <td class="title">
+          Today's outstanding balance
+        </td>
+        <td class="amount">
+          {{item.balance}}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          Rate of Interest
+        </td>
+        <td class="amount">
+          {{item.rate}}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          Tenure
+        </td>
+        <td class="amount">
+          {{item.tenure}}
+        </td>
+      </tr>
+      <tr>
+        <td class="title">
+          EMI
+        </td>
+        <td class="amount">
+          {{item.emi}}
+        </td>
+      </tr>
+    </table>
+  </div>
+<!-- </ng-template> -->

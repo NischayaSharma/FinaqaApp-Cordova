@@ -1,0 +1,108 @@
+<ion-content *ngIf="payments">
+  <div class="paymentHeader">
+    <ion-card class="headerCard">
+      <div class="informationBar">
+        <div class="amountLabel">
+          Total Amount
+        </div>
+        <div class="amount" *ngIf="gotPayment; else amtEarnedElse">
+          Rs. {{ payments.amtEarned }}
+        </div>
+        <ng-template #amtEarnedElse>
+          <ion-skeleton-text animated style="height: 10px; margin-top: 6%; margin-right: 2%;"  ></ion-skeleton-text>
+        </ng-template>
+      </div>
+
+      <div class="informationBar">
+        <div class="amountLabel">
+          Amount Pending
+        </div>
+        <div class="amount" *ngIf="gotPayment; else amtEarnedElse">
+          Rs. {{ payments.amtPending }}
+        </div>
+        <ng-template #amtPendingElse>
+          <ion-skeleton-text animated style="height: 10px; margin-top: 6%; margin-right: 2%;"></ion-skeleton-text>
+        </ng-template>
+      </div>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!gotPayment && !noPayments">
+    <ion-card class="detailCard" *ngFor=" let item of [0,1,2,3,4,5,5,6,6,5]">
+      <div class="detailHeader">
+        <div class="detailAmount">
+          <ion-skeleton-text animated style="height: 15px; width: 125px;"></ion-skeleton-text>
+        </div>
+
+        <div style="width: 100%; display: flex;">
+          <div class="icon">
+            <ion-icon name="calendar-outline" class="calenderIcon"></ion-icon>
+          </div>
+          <div class="date-content">
+          <ion-skeleton-text animated style="height: 15px; width: 125px;"></ion-skeleton-text>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="width: 100%; display: flex; margin-left: 1rem; margin-bottom: 1rem;">
+        <div class="icon">
+          <ion-icon name="help-circle-outline" class="calenderIcon"></ion-icon>
+        </div>
+        <div class="iconLabel">
+          <ion-skeleton-text animated style="height: 10px; width: 300px;"></ion-skeleton-text>
+        </div>
+      </div>
+
+      <div style="width: 100%; display: flex; margin-left: 1rem; margin-bottom: 1rem;">
+        <div class="icon">
+          <ion-icon name="person-outline" class="calenderIcon"></ion-icon>
+        </div>
+        <div class="iconLabel">
+          <ion-skeleton-text animated style="height: 10px; width: 300px;"></ion-skeleton-text>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+
+  <div *ngIf="gotPayment">
+    <ion-card class="detailCard" *ngFor=" let item of payments.historyDetails">
+      <div class="detailHeader">
+        <div class="detailAmount">
+          Rs. {{ item.amount }}
+        </div>
+    
+        <div style="width: 100%; display: flex;">
+          <div class="icon">
+            <ion-icon name="calendar-outline" class="calenderIcon"></ion-icon>
+          </div>
+          <div class="date-content">
+            {{ formatDate(item.transDate) }}
+          </div>
+        </div>
+      </div>
+    
+      <div class="divider"></div>
+    
+      <div style="width: 100%; display: flex; margin-left: 1rem; margin-bottom: 1rem;">
+        <div class="icon">
+          <ion-icon name="help-circle-outline" class="calenderIcon"></ion-icon>
+        </div>
+        <div class="iconLabel">
+          {{ item.queryType }}
+        </div>
+      </div>
+    
+      <div style="width: 100%; display: flex; margin-left: 1rem; margin-bottom: 1rem;">
+        <div class="icon">
+          <ion-icon name="person-outline" class="calenderIcon"></ion-icon>
+        </div>
+        <div class="iconLabel">
+          {{ item.customerName }}
+        </div>
+      </div>
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -1,0 +1,15 @@
+<app-header header="Queries" menu="true"></app-header>
+
+<ion-content>
+  <ion-card *ngFor=" let card of queryCards" [class]="card.class" routerLink="/sidebar/tabs/tabs/query-healthcheck">
+    <div class="blackOverlay"></div>
+    <div class="content contentCentre">
+      <ion-card-header color="white">
+        <ion-card-title>{{ card.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ card.content }}
+      </ion-card-content>
+    </div>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,104 @@
+<ion-content>
+  <div *ngIf="gotPayments">
+    <div *ngFor=" let item of payments">
+      <ion-card>
+        <ion-card-header style="display: flex;">
+          <ion-avatar>
+            <ion-img src="/assets/ic_quora_img.png"></ion-img>
+          </ion-avatar>
+          <ion-title style="width: 100%;"> {{ item.queryDesc }} </ion-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <div class="content">
+          <div class="paymentDateBar" style="display: flex;">
+          
+            <div style="width: 100%; display: flex;">
+              <div class="icon">
+                <ion-icon name="cash-outline" class="ion-icon"></ion-icon>
+              </div>
+              <div class="payment-content">
+                Rs.{{ item.amount }}
+              </div>
+            </div>
+          
+            <div style="width: 100%; display: flex;">
+              <div class="icon">
+                <ion-icon name="calendar-outline" class="ion-icon"></ion-icon>
+              </div>
+              <div class="payment-content">
+                <!-- {{ card.date }} -->
+                {{ item.paymentDate }}
+              </div>
+            </div>
+          </div>
+
+          <div class="queryType">
+            {{ item.queryTitle }}
+          </div>
+
+          <div class="paymentStatus">
+            <ion-icon class="walletIcon" src="../../../assets/wallet_icon.svg"></ion-icon>
+            {{ item.paymentStatus }}
+          </div>
+          </div>
+        </ion-card-content>
+
+      </ion-card>
+      <div style="width: 100%;background-color: grey; height: 1px;"></div>
+    </div>
+  </div>
+  <div *ngIf="!gotPayments && !noPayments">
+    <div *ngFor=" let item of [1,1,1,1,1,1,1,1,1]">
+      <ion-card>
+        <ion-card-header style="display: flex;">
+          <ion-avatar>
+            <ion-img src="/assets/ic_quora_img.png"></ion-img>
+          </ion-avatar>
+          <ion-title style="width: 100%;">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+    
+          <div class="content">
+            <div class="paymentDateBar" style="display: flex;">
+    
+              <div style="width: 100%; display: flex;">
+                <div class="icon">
+                  <ion-icon name="cash-outline" class="ion-icon"></ion-icon>
+                </div>
+                <div class="payment-content">
+                  <ion-skeleton-text animated style="width: 100px;"></ion-skeleton-text>
+                </div>
+              </div>
+    
+              <div style="width: 100%; display: flex;">
+                <div class="icon">
+                  <ion-icon name="calendar-outline" class="ion-icon"></ion-icon>
+                </div>
+                <div class="payment-content">
+                  <!-- {{ card.date }} -->
+            <ion-skeleton-text animated style="width: 100px;"></ion-skeleton-text>
+                </div>
+              </div>
+            </div>
+    
+            <div class="queryType">
+            <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+    
+            <div class="paymentStatus">
+              <ion-icon class="walletIcon" src="../../../assets/wallet_icon.svg"></ion-icon>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+          </div>
+        </ion-card-content>
+    
+      </ion-card>
+      <div style="width: 100%;background-color: grey; height: 1px;"></div>
+    </div>
+  </div>
+</ion-content>

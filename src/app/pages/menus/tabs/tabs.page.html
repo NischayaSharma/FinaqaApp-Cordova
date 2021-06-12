@@ -1,0 +1,25 @@
+<ion-tabs #tabs (ionTabsDidChange)="tabsChange(tabs)">
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button tab="query" *ngIf="auth.$isClient">
+      <ion-thumbnail class="tabsIcon" [class.active-item]="activeTabName=='query'">
+        <ion-img src="assets/ic_questions_24.png"></ion-img>
+      </ion-thumbnail>
+      <ion-label class="tabsLbl">Queries</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="answer">
+      <ion-thumbnail class="tabsIcon" [class.active-item]="activeTabName=='answer'">
+        <ion-img src="assets/ic_q_a_24.png"></ion-img>
+      </ion-thumbnail>
+      <ion-label class="tabsLbl">Answers</ion-label>
+    </ion-tab-button>
+  
+    <ion-tab-button tab="payments">
+      <ion-thumbnail class="tabsIcon" [class.active-item]="activeTabName=='payments'">
+        <ion-img src="assets/ic_payment_white_24dp.png"></ion-img>
+      </ion-thumbnail>
+      <ion-label class="tabsLbl">Payments</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

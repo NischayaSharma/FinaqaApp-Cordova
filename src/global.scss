@@ -24,3 +24,86 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.buttonContainer {
+    padding: 2%;
+}
+
+.contentCentre {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.buttonText {
+    text-transform: capitalize !important;
+}
+.modalcss .modal-wrapper {
+    height: auto;
+    width: auto;
+    top: 20%;
+    right: 10%;
+    left: 10%;
+    bottom: 20%;
+    position: absolute;
+}
+
+.meetingModal .modal-wrapper {
+    border: var(--ion-color-dark) solid 1px;
+    border-radius: 15px;
+    height: inherit;
+    width: 85%;
+    top: 32%;
+    bottom: 37%;
+    position: absolute;
+}
+
+.loadingModal .modal-wrapper {
+    height: auto;
+    width: auto;
+    top: 40%;
+    right: 20%;
+    left: 20%;
+    bottom: 40%;
+    position: absolute;
+    background-color: #FFFFFF00;
+}
+
+.popovercss .popover-content {
+  background: #222;
+  --width: 75%;
+  height: auto;
+}
+.alert-class .alert-wrapper {
+    --min-width: 95%;
+    .text {
+        text-align: left;
+        width: 100%;
+        color: var(--ion-color-dark);
+        .title {
+            font-weight: bold;
+        }
+    }
+    .alert-radio.sc-ion-alert-md,
+    .alert-radio.sc-ion-alert-ios {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+    .alert-radio-label.sc-ion-alert-md,
+    .alert-radio-label.sc-ion-alert-ios {
+        white-space: normal;
+    }
+}
+
+.toast-css {
+    --color: var(--ion-color-primary);
+    --background: var(--ion-color-light);
+    text-align: center;
+}
+
+.action-sheet-class .action-sheet-group {
+    --color: var(--ion-color-primary);
+    --button-color: var(--ion-color-dark);
+    max-height: 40%;
+}

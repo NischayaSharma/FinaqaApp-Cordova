@@ -1,0 +1,18 @@
+<ion-content class="modalForm">
+  <div class="form" >
+    <app-form [formFields]="modalFields" [formGroup]="healthcheckModalForm"></app-form>
+  </div>
+  <div class="btnGroup" >
+    <div class="saveCancel">
+      <div style="width: 100%;">
+        <ion-button style="--border-radius: 15px;" class="buttonText" routerDirection="backward" expand="block" (click)="cancel()" fill="outline" >Cancel</ion-button>
+      </div>
+      <div style="width: 100%;">
+        <ion-button style="--border-radius: 15px;" class="buttonText" expand="block" [disabled]="!healthcheckModalForm.valid" (click)="saveButton()" >Save</ion-button>
+      </div>
+    </div>
+    <div class="skipBtn">
+      <ion-button style="--border-radius: 15px;" class="buttonText" expand="block" [disabled]="dataService.$healthcheck.loan.length>0" fill="outline" (click)="skip()">Skip this Step</ion-button>
+    </div>
+  </div>
+</ion-content>

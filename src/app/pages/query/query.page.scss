@@ -1,0 +1,84 @@
+.FHC {
+    background: url('../../../assets/service1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.UA {
+    background: url('../../../assets/service2.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.TAEA {
+    background: url('../../../assets/service3.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.STRT {
+    background: url('../../../assets/service4.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.PBO {
+    background: url('../../../assets/service5.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.MSME {
+    background: url('../../../assets/service6.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.PS {
+    background: url('../../../assets/service7.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: fit-content;
+    min-height: 30%;
+    color:white;
+    display: flex;
+}
+.blackOverlay {
+    position: absolute;
+    background: black;
+    opacity: 0.5;
+    height: 100%;
+    width: 100%;
+}
+.content {
+    text-align: center;
+}
+
+ion-card-content {
+    font-size: larger;
+}
+ion-card-title {
+    font-size: x-large;
+}
+ion-card {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}

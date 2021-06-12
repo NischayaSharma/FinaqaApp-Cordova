@@ -1,0 +1,27 @@
+<app-header menu="false" defHref="/login" header="Client Register"></app-header>
+<ion-content>
+  <!-- <ion-button slot="fixed" style="top:0" expand="block" (click)="populate()">Populate</ion-button> -->
+  <div class="screenCenter">
+    <app-form [formGroup]="registerForm" [formFields]="registerFormFields" labelColor="primary"></app-form>
+    <ion-slides id="accntTypeInfoSlides">
+      <ion-slide *ngFor="let info of accntTypeInfo">
+        <div style="width: 80%; margin: auto;">
+          <div style="font-weight: bold; margin-bottom: 1rem; margin-top: 1rem;">
+            {{ info.header }}
+          </div>
+          <div style="text-align: justify;">
+            {{ info.content }}
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <ion-item lines="none">
+      <ion-checkbox slot="start" [(ngModel)]="tnc"></ion-checkbox>
+      <ion-label> I accept all the <a href="http://www.finaqa.com/policies/termsAndConditions">Terms and Conditions</a></ion-label>
+    </ion-item>
+  </div>
+  <div class="buttonContainer">
+    <ion-button style="--border-radius: 15px;" class="buttonText" [disabled]="!(registerForm.valid && tnc)" size="large" type="submit" expand="block"
+      (click)="submit()">Register</ion-button>
+  </div>
+</ion-content>

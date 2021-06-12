@@ -1,0 +1,47 @@
+<ion-split-pane contentId="content">
+  <ion-menu contentId="content" side="end" >
+
+    <app-header header="Finaqa"></app-header>
+
+    <ion-content>
+      <ion-list>
+
+        <ion-item tappable routerDirection="root" routerLink="/" *ngIf="!auth.$isLoggedIn">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          Home
+        </ion-item>
+        <ion-item tappable routerDirection="root" routerLink="/login" *ngIf="!auth.$isLoggedIn">
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
+          Login/Register
+        </ion-item>
+
+        <ion-list-header mode="ios" > Company Information </ion-list-header>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of companyInfo" >
+          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)" >
+            <ion-icon [name]="p.icon" slot="start"></ion-icon>
+            {{ p.title }}
+          </ion-item>
+        </ion-menu-toggle>
+
+        <div *ngIf="auth.$isLoggedIn">
+          <ion-list-header mode="ios"> My Profile </ion-list-header>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of profile">
+            <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)" *ngIf="p != null">
+              <ion-icon [name]="p.icon" slot="start"></ion-icon>
+              {{ p.title }}
+            </ion-item>
+          </ion-menu-toggle>
+        </div>
+
+        <ion-item tappable routerDirection="root" (click)="logout()" *ngIf="auth.$isLoggedIn">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          Logout
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</ion-split-pane>

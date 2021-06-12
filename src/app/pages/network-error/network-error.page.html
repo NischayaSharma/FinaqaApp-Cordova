@@ -1,0 +1,26 @@
+<app-header header="Network Error"></app-header>
+
+<ion-content>
+  <div class="container">
+    <div class="subContainer">
+
+      <div class="noNetwrokImageContainer">
+        <picture>
+            <source srcset="/assets/no-network-white.png" media="(prefers-color-scheme: dark)">
+            <img class="noNetworkImage" src='/assets/no-network.png'/>
+        </picture>
+      </div>
+
+      <div class="noNetworkTextContainer">
+        <div class="noNetworkText">
+          No Internet Connection
+        </div>
+        <div class="retryButton">
+          <ion-button size="large" fill="outline" expand="block" (click)='retry()'>
+            Retry
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

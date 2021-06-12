@@ -1,0 +1,32 @@
+.asset-table{
+    border: 2px solid #d1d1d1;
+    width: 100%;
+    padding:2%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+tr {
+    border-top: 1px solid #e8e8e8;
+}
+.first-child {
+    border-top: none;
+}
+td{
+    padding-left: 2% ;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+table{
+    width: 100%;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+}
+.amount{
+    text-align: center;
+    
+}
+.title {
+    font-weight: bold;
+    width: 75%;
+}
