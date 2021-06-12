@@ -256,7 +256,7 @@ export class AskQueryPage implements OnInit {
       title: this.askQuery.get('title').value,
       categoryId: this.askQuery.get('category').value,
       subCategoryId: this.askQuery.get('subCategory').value,
-      queryDesc: this.askQuery.get('query').value.replace(/\n/g, " "),
+      queryDesc: this.askQuery.get('query').value.replace(/\n/g, "<br>"),
       queryType: 1,
     }
     console.log(queryData);
@@ -272,27 +272,7 @@ export class AskQueryPage implements OnInit {
           if (response['errorCode'] == 0) {
             var data = JSON.parse(response['data'])
                 this.route.navigate(['/sidebar/file-upload'], { queryParams: { queryId: data.queryId, amount: data.amount, transId:data.transId } })
-          } else {
-            var createdPopver = await this.popover.create({
-              component: PopoverComponent,
-              componentProps: {
-                title: 'Details Updated',
-                content: response['message']
-              },
-              cssClass: "popovercss"
-            })
-            await createdPopver.present();
-            await createdPopver.onDidDismiss()
-              .then(() => {
-                this.askQuery.setValue({
-                  bankName: "",
-                  bankBranch: "",
-                  bankAcNum: "",
-                  ifscCode: "",
-                })
-
-              })
-          }
+          } else { }
         })
     }
   }

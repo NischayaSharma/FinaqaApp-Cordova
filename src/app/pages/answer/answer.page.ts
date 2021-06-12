@@ -95,7 +95,7 @@ export class AnswerPage implements OnInit {
   }
 
   checkUrl(message: string) {
-    return message.split('###').length > 1 ? message.split('###')[0] + " " + message.split('###')[1] : message.split('###')
+    return message.replaceAll('###',' ').replaceAll('<br>', ' ')
   }
 
   async closeQuery(item) {
