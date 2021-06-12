@@ -2,7 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouteConfigLoadEnd, Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 import { ApiService } from 'src/app/services/api.service';
 import { FormFields } from 'src/app/services/dtos.service';
@@ -61,12 +61,20 @@ export class BankDetailsPage implements OnInit {
 
   details:any
 
-  constructor( private popover:PopoverController, private route:Router, private apiService:ApiService, private util:UtilService, private formBuilder:FormBuilder ) {
+  constructor(
+    private apiService:ApiService,
+    private util:UtilService,
+    private formBuilder:FormBuilder,
+    private alertController:AlertController,
+  ) {
     this.bankDetailsForm = util.formFieldsToFormGroup( this.formBuilder, this.bankDetailsFields, this.bankDetailsForm)
-    this.apiService.consultantBankDetails()
-      .subscribe( response => {
+  }
+
+  async getDetails() {
+    await this.apiService.consultantBankDetails()
+      .then(response => {
         console.log(response);
-        if (response['errorCode']==0){
+        if (response['errorCode'] == 0) {
           var data = JSON.parse(response['data'])
           this.details = data
           this.bankDetailsForm.setValue({
@@ -85,34 +93,15 @@ export class BankDetailsPage implements OnInit {
       .subscribe(async response => {
         console.log(response);
         if (response['errorCode']==0) {
-          var createdPopver = await this.popover.create({
-            component: PopoverComponent,
-            componentProps: {
-              title: 'Details Updated',
-              content: 'You bank details have been successfully updated.'
-            },
-            cssClass: "popovercss"
-          })
-          await createdPopver.present();
+          await this.getDetails();
+          this.util.showToast('Bank Details updated Successfully')
         } else {
-          var createdPopver = await this.popover.create({
-            component: PopoverComponent,
-            componentProps: {
-              title:'Details Updated',
-              content:response['message']
-            },
-            cssClass: "popovercss"
-          })
-          await createdPopver.present();
-          await createdPopver.onDidDismiss()
-            .then(() => {
-              this.bankDetailsForm.setValue({
-                bankName:"",
-                bankBranch:"",
-                bankAcNum:"",
-                ifscCode:"",
-              })
-            })
+          var noButtonAlert = await this.alertController.create({
+            header: 'Error',
+            message: response['message'],
+            buttons: []
+          });
+          noButtonAlert.present()
         }
       })
   }

@@ -46,7 +46,8 @@ export class MyProfilePage implements OnInit {
     console.log(file);
   }
 
-  getProfile() {
+  async getProfile() {
+    await this.data.getUserProfile();
     var profile = this.data.$userProfile;
     this.photoUrl = profile.photoUrl == null ? "assets/ic_users.png" : profile.photoUrl;
     this.profileForm.setValue({ name: profile.userName, phone: profile.phone, email: profile.emailId, skypeId: profile.skypeId, accountType: this.auth.$accountType == undefined || this.auth.$accountType == null ? "Individual" : this.accntType[this.auth.$accountType] })
@@ -156,15 +157,17 @@ export class MyProfilePage implements OnInit {
         if (response) {
           modal.dismiss();
           this.uploader.clearQueue();
+        }
+        if(response['errorCode']==0) {
+          await this.getProfile();
+          this.util.showToast('Profile Updated Successfully')
+        } else {
           this.noButtonAlert = await this.alertController.create({
-            header: response['errorCode'] == 0 ? 'Success' : 'Error',
+            header: 'Error',
             message: response['message'],
             buttons: []
           });
           this.noButtonAlert.present()
-        }
-        if(response['errorCode']==0) {
-          this.getProfile();
         }
       })
   }

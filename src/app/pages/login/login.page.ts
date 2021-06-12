@@ -64,6 +64,12 @@ export class LoginPage implements OnInit {
     this.responseMssg=""
   }
 
+  ionViewDidEnter() {
+    if(this.auth.$isLoggedIn) {
+      this.router.navigate(['/sidebar/tabs/tabs/answer'])
+    }
+  }
+
   submit() {
     console.log(this.loginForm.value)
     this.responseMssg = ""

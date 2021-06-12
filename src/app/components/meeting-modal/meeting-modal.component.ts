@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { Dropdown, FormFields } from 'src/app/services/dtos.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -19,7 +19,7 @@ export class MeetingModalComponent implements OnInit {
   setMeetingForm: FormGroup;
   formFields: FormFields[] = []
   constructor(
-    private modalController:ModalController,
+    private popoverController:PopoverController,
     private util:UtilService,
     private formBuilder:FormBuilder,
   ) {
@@ -56,7 +56,10 @@ export class MeetingModalComponent implements OnInit {
   }
 
   sendLink() {
-    this.modalController.dismiss(this.setMeetingForm.value)
+    this.popoverController.dismiss(this.setMeetingForm.value)
   }
 
+  cancel() {
+    this.popoverController.dismiss();
+  }
 }

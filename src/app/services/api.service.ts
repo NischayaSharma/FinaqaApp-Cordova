@@ -175,7 +175,7 @@ export class ApiService {
   consultantBankDetails(){
       console.log(this.auth.$loginDetails);
       var body = { "user": this.auth.$loginDetails }
-    return this.httpClient.post( URL + '/consultant/apiGetBankDetails', body, this.options())
+    return this.httpClient.post( URL + '/consultant/apiGetBankDetails', body, this.options()).toPromise()
   }
 
   consultantLogin(email: string, password: string) {

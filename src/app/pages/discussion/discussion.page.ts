@@ -7,11 +7,12 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { File, FileSystem } from '@ionic-native/file/ngx';
 import { Device } from '@ionic-native/device/ngx';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { FileLikeObject, FileUploader } from 'ng2-file-upload';
 import { LoadingModalComponent } from 'src/app/components/loading-modal/loading-modal.component';
 import { MeetingModalComponent } from 'src/app/components/meeting-modal/meeting-modal.component';
 import { Dropdown } from 'src/app/services/dtos.service';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
 
 const MIME_TYPES = {
 '.123' : 'application/vnd.lotus-1-2-3',
@@ -1013,10 +1014,11 @@ export class DiscussionPage implements OnInit {
   queryId:any;
   isMyReplyTurn:boolean = false;
   isClosed:boolean = false;
-  messages:any[]
-  reply = ""
+  messages:any[];
+  reply = "";
   meetings:Dropdown[] = [];
   hasMeetings = false;
+  response = {lines: [], links:""};
 
   constructor( 
     private route:ActivatedRoute,
@@ -1026,8 +1028,8 @@ export class DiscussionPage implements OnInit {
     private fileOpner: FileOpener,
     private nativeHTTP: HTTP, 
     private file: File,
-    private alertController: AlertController,
-    private modalController:ModalController,
+    private modalController: ModalController,
+    private popoverController:PopoverController,
   ) { }
 
   ionViewDidEnter() {
@@ -1100,8 +1102,19 @@ export class DiscussionPage implements OnInit {
     return moment(timestamp).format('DD MMM, YYYY hh:MMa');
   }
 
-  checkUrl(message:string) {
-    return message.split('###')
+  formatData(message:string) {
+    this.response.lines = message.split('<br>')
+    this.response.lines.forEach(line => {
+      if(line.startsWith('Link: ')) {
+        this.response.lines[this.response.lines.indexOf(line)] = "Link: "
+      }
+    })
+    this.response.links = message.split('###')[1]
+    console.log(this.response);
+  }
+
+  checkUrl(message:string){
+    return message.split('###').length>1
   }
 
   meetingGrid(meetings) {
@@ -1120,8 +1133,8 @@ export class DiscussionPage implements OnInit {
       var text = "Date:" + date + ", Time:" + time
       console.log(date + " " + time);
       
-      dateDate = new Date(date + " " + time).toISOString();
-      console.log(dateDate)
+      dateDate = moment(date + " " + time).format();
+      console.log("TimeStamp ==> ", moment(date + " " + time).format())
       // console.log(moment(date+'T'+time).format());
       this.meetings.push({ value: dateDate, text: text })
       counter += 1
@@ -1131,11 +1144,10 @@ export class DiscussionPage implements OnInit {
 
   async sendMeetLink() {
     console.log("Meeting Timings ==>", this.meetings);
-    const modal = await this.modalController.create({
-      mode: 'md',
+    const modal = await this.popoverController.create({
       component: MeetingModalComponent,
       componentProps: {meetingTimings: this.meetings},
-      cssClass: 'meetingModal',
+      cssClass: 'popovercss',
     })
     modal.present()
 
@@ -1143,9 +1155,7 @@ export class DiscussionPage implements OnInit {
       .then(data => {
         console.log(data);
         if(data.data != undefined) {
-          var text = "Meeting Details " + this.meetings[data.data.meetTime - 1].text + ". The link is ###" + data.data.meetLink + "###"
-          var testRE = text.match("###(.*)###");
-          console.log(testRE);
+          var text = "Your Meeting is scheduled.<br>Meeting Details: <br>Time: " + moment(data.data.meetTime).format('hh:MM a') + "<br>Date: " + moment(data.data.meetTime).format('DD,MMM YYYY') + "<br>Link: ###" + data.data.meetLink + "###"
           this.reply = text;
           this.send();
         }

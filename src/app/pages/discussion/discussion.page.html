@@ -4,9 +4,11 @@
   <div *ngFor="let message of messages" class="content">
 
     <div [class]=" message.isMyReply? 'chatUser':'chatCons'" >
-      {{ checkUrl(message.answerText)[0] }} 
-      <a style="color: white;" *ngIf="checkUrl(message.answerText).length > 1"
-        [href]="checkUrl(message.answerText)[1]">{{checkUrl(message.answerText)[1]}}</a>
+      {{ formatData(message.answerText=='Google meet meeting scheduled'? 'Online Meet Scheduled' : message.answerText) }} 
+      <div *ngFor="let line of response.lines">
+        {{ line }}<br *ngIf="!(response.lines.indexOf(line) == response.lines.length-1)">
+        <a style="color: white;" *ngIf="checkUrl(message.answerText) && (response.lines.indexOf(line) == response.lines.length-1)" [href]="response.links">{{ response.links }}</a>
+      </div>
     </div>
 
     <div *ngIf=" message.meetings != null">
@@ -79,10 +81,10 @@
     </ion-fab-button>
     <ion-fab-list side="start">
       <ion-fab-button (click)="inputFile()">
-        <ion-icon style="font-size: x-large;" name="attach"></ion-icon>
+        <ion-icon color="primary" style="font-size: x-large;" name="attach"></ion-icon>
       </ion-fab-button>
       <ion-fab-button (click)="sendMeetLink()" *ngIf="hasMeetings">
-        <ion-icon style="font-size: x-large;" name="alarm"></ion-icon>
+        <ion-icon color="primary" style="font-size: x-large;" name="alarm"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
@@ -91,12 +93,12 @@
 <ion-footer *ngIf="isMyReplyTurn && !isClosed">
   <input ng2FileSelect id="fileInput" type="file" [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-button (click)="inputFile()" size="large" class="buttonText">
         <ion-icon name="attach-outline" color="primary"></ion-icon>
       </ion-button>
-    </ion-buttons>
-    <ion-item style="--border-color: var(--ion-color-primary); margin-bottom: 3%; --padding-start: 0;">
+    </ion-buttons> -->
+    <ion-item style="--border-color: var(--ion-color-primary); margin-bottom: 3%; --padding-start: 0; margin-left: 2%;">
       <ion-input [(ngModel)]="reply"></ion-input>
     </ion-item>
     <ion-buttons slot="end">
