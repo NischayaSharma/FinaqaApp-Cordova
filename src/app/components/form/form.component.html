@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup">
-  <div>
-    <ion-item mode='md' class="formField" *ngFor="let field of formFields">
+  <div *ngFor="let field of formFields">
+    <ion-item mode='md' class="formField">
 
       <ion-grid style=" --ion-grid-width: 100%;" fixed>
         <ion-row>
@@ -77,19 +77,19 @@
             <ion-icon style="font-size:x-large; margin-left: auto; margin-top: auto; margin-bottom: auto;" [name]="passwordIcon"></ion-icon>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>
-            <div *ngIf="f(field.controlName).touched && f(field.controlName).invalid">
-              <div *ngIf="f(field.controlName).errors.required">{{ field.label }} is required.</div>
-              <div *ngIf="f(field.controlName).errors.pattern">Please, enter valid {{ field.label }}.</div>
-              <div *ngIf="f(field.controlName).errors.email">Please, enter valid {{ field.label }}.</div>
-              <div *ngIf="f(field.controlName).errors.number">Please, enter valid {{ field.label }}.</div>
-            </div>
-          </ion-col>
-        </ion-row>
       </ion-grid>
 
     </ion-item>
-    
+    <div *ngIf="f(field.controlName).touched && f(field.controlName).invalid" style="padding: 2%; color: var(--ion-color-light); background-color: var(--ion-color-danger-shade);">
+      <div *ngIf="f(field.controlName).errors.required">{{ field.label }} is required.</div>
+      <div *ngIf="f(field.controlName).errors.pattern">Please, enter valid {{ field.label }}.</div>
+      <div *ngIf="f(field.controlName).errors.email">Please, enter valid {{ field.label }}.</div>
+      <div *ngIf="f(field.controlName).errors.number">Please, enter valid {{ field.label }}.</div>
+      <div *ngIf="f(field.controlName).errors.number">Please, enter valid {{ field.label }}.</div>
+      <div *ngIf="f(field.controlName).errors.minlength">Minimum length for {{ field.label }} is {{ f(field.controlName).errors.minlength.requiredLength }}.</div>
+      <div *ngIf="f(field.controlName).errors.maxlength">Maximum length for {{ field.label }} is {{ f(field.controlName).errors.maxlength.requiredLength }}.</div>
+      <div *ngIf="f(field.controlName).errors.min">Minimum value for {{ field.label }} is {{  f(field.controlName).errors.min.min }}.</div>
+      <div *ngIf="f(field.controlName).errors.max">Maximum value for {{ field.label }} is {{  f(field.controlName).errors.max.max }}.</div>
+    </div>
   </div>
 </form>

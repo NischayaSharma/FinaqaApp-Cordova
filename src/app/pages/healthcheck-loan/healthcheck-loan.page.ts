@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { HealthcheckLoanModalComponent } from 'src/app/components/healthcheck-loan-modal/healthcheck-loan-modal.component';
 import { DataService } from 'src/app/services/data.service';
 import { Loan } from 'src/app/services/dtos.service';
@@ -12,7 +12,7 @@ import { Loan } from 'src/app/services/dtos.service';
 export class HealthcheckLoanPage implements OnInit {
 
 
-  constructor(private modalController: ModalController, private dataService: DataService) {
+  constructor(private PopoverController: PopoverController, private dataService: DataService) {
     this.loanData = this.dataService.$healthcheck.loan
   }
 
@@ -20,17 +20,17 @@ export class HealthcheckLoanPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.presentModal()
+    this.presentPopover()
   }
 
   loanData: Loan[];
-  async presentModal() {
-    const modal = await this.modalController.create({
+  async presentPopover() {
+    const Popover = await this.PopoverController.create({
       component: HealthcheckLoanModalComponent,
-      cssClass: "modalcss",
+      cssClass: "popovercss",
     })
 
-    modal.onDidDismiss().then((dataReturned) => {
+    Popover.onDidDismiss().then((dataReturned) => {
       if (dataReturned.data !== undefined && dataReturned.data !== null) {
         this.loanData = [...this.loanData, dataReturned.data]
         this.dataService.$healthcheck = { assets: this.dataService.$healthcheck.assets, loan: this.loanData }
@@ -39,7 +39,7 @@ export class HealthcheckLoanPage implements OnInit {
       }
     });
 
-    return await modal.present();
+    return await Popover.present();
   }
 
 }

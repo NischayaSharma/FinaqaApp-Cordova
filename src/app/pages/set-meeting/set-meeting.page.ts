@@ -68,9 +68,28 @@ export class SetMeetingPage implements OnInit {
       });
   }
 
+  ionViewWillEnter() {
+    this.slotList = []
+  }
+
+  validateTime(today) {
+    var retVal = moment(today).format('HH:mm');
+    if (moment(today).format('HH:mm').split(':')[0] >= '18') {
+      if (moment(today).format('HH:mm').split(':')[1] > '00') {
+        retVal = "18:00";
+      };
+    };
+    if (moment(today).format('HH:mm').split(':')[0] < '09') {
+        retVal = "09:00";
+    };
+    retVal = moment(moment(TODAY).format('DD,MMM YYYY') + " " + retVal).format();
+    return retVal;
+  }
+
   addTime() {
     var len = this.slotList.length
-    this.slotList.push({ index: len + 1, meetings: { meetingDate: TODAY, meetingTime: TODAY, durationMin: (parseInt(this.durationVal) * 60).toString()}})
+    this.slotList.push({ index: len + 1, meetings: { meetingDate: TODAY, meetingTime: this.validateTime(TODAY), durationMin: (parseInt(this.durationVal) * 60).toString()}})
+    console.log(this.slotList);
   }
 
   deleteTime(slot) {
@@ -88,7 +107,7 @@ export class SetMeetingPage implements OnInit {
     this.slotList.forEach(element => {
       element.meetings.durationMin = (parseFloat(this.durationVal) * 60).toString()
       element.meetings.meetingDate = moment(element.meetings.meetingDate).format('DD-MM-YYYY')
-      element.meetings.meetingTime = moment(element.meetings.meetingTime).format('HH:MM')
+      element.meetings.meetingTime = moment(element.meetings.meetingTime).format('HH:mm')
       this.queryData.meetings.push(element.meetings)
     })
     console.log("Final Slot List to submit",this.slotList);

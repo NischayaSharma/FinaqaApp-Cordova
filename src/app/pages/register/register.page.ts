@@ -281,7 +281,7 @@ export class RegisterPage implements OnInit {
       interfaceOptions: null,
       interface: null,
       data: null,
-      validators: [Validators.required, Validators.maxLength(6)],
+      validators: [Validators.required, Validators.maxLength(6), Validators.minLength(6)],
       icon: 'barcode-outline'
     },
     {

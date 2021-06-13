@@ -6,11 +6,12 @@ import { LoadingModalComponent } from '../components/loading-modal/loading-modal
 import { ApiService } from './api.service';
 import { FormFields, UserProfile } from './dtos.service';
 import 'capacitor-razorpay';
+import { Network } from '@ionic-native/network/ngx';
 import { Plugins, NetworkStatus } from '@capacitor/core';
 import { AuthService } from './auth.service';
 
 const { Checkout } = Plugins;
-const { Network } = Plugins;
+// const { Network } = Plugins;
 
 
 
@@ -25,6 +26,7 @@ export class UtilService {
     private apiService:ApiService,
     private router:Router,
     private auth:AuthService,
+    private network:Network,
   ) { }
 
   public formFieldsToFormGroup(formBuilder:FormBuilder, fields: FormFields[], group: FormGroup): FormGroup {
@@ -36,32 +38,45 @@ export class UtilService {
     return group
   }
 
-  public async checkNetwork (successUrl?:string) {
-    var networkListener = Network.addListener('networkStatusChange', (status) => {
-      console.log("Network status changed", JSON.stringify(status));
-      if (!status.connected) {
-        this.router.navigateByUrl('/network-error')
-        this.auth.$isClient = true;
-        this.auth.$isLoggedIn = false;
-        this.auth.$loginDetails = { loginType: 2, password: "", userId: 0 }
-      } else {
-        if (successUrl) {
-          this.router.navigateByUrl(successUrl)
-        } else {
-          this.router.navigateByUrl('/home')
-        }
-      }
+  // public async checkCapacitorNetwork (successUrl?:string) {
+  //   var networkListener = Network.addListener('networkStatusChange', (status) => {
+  //     console.log("Network status changed", JSON.stringify(status));
+  //     if (!status.connected) {
+  //       this.router.navigateByUrl('/network-error')
+  //       this.auth.$isClient = true;
+  //       this.auth.$isLoggedIn = false;
+  //       this.auth.$loginDetails = { loginType: 2, password: "", userId: 0 }
+  //     } else {
+  //       if (successUrl) {
+  //         this.router.navigateByUrl(successUrl)
+  //       } else {
+  //         this.router.navigateByUrl('/home')
+  //       }
+  //     }
+  //   });
+  //   var networkStatus: NetworkStatus = await Network.getStatus();
+  //   console.log(networkStatus);
+  //   if (networkStatus.connected) {
+  //     if (successUrl) {
+  //       this.router.navigateByUrl(successUrl)
+  //     } else {
+  //       this.router.navigateByUrl('/home')
+  //     }
+  //   }
+  // }
+
+  public async checkNetwork() {
+    this.network.onConnect().subscribe((value) => {
+      this.router.navigateByUrl('/home')
     });
-    var networkStatus: NetworkStatus = await Network.getStatus();
-    console.log(networkStatus);
-    if (networkStatus.connected) {
-      if (successUrl) {
-        this.router.navigateByUrl(successUrl)
-      } else {
-        this.router.navigateByUrl('/home')
-      }
-    }
+    this.network.onDisconnect().subscribe(() => {
+      this.router.navigateByUrl('/network-error')
+      this.auth.$isClient = true;
+      this.auth.$isLoggedIn = false;
+      this.auth.$loginDetails = { loginType: 2, password: "", userId: 0 }
+    })
   }
+
 
   orderId = "";
   async handlePayment(amount: number, userProfile:UserProfile, transactionId: string) {

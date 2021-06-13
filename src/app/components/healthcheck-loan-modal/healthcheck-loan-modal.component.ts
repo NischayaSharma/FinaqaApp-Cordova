@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { Dropdown, FormFields, Loan } from 'src/app/services/dtos.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -17,7 +17,7 @@ export class HealthcheckLoanModalComponent implements OnInit {
     private route:Router,
     private formBuilder: FormBuilder,
     private util: UtilService,
-    private modalController: ModalController,
+    private popoverController: PopoverController,
     public dataService:DataService) { 
     this.healthcheckModalForm = this.util.formFieldsToFormGroup(this.formBuilder, this.modalFields, this.healthcheckModalForm)
   }
@@ -206,11 +206,11 @@ export class HealthcheckLoanModalComponent implements OnInit {
     console.log(data);
 
     this.dataService.$healthcheck = { assets: this.dataService.$healthcheck.assets, loan: [...this.dataService.$healthcheck.loan, data] }
-    await this.modalController.dismiss(data);
+    await this.popoverController.dismiss(data);
   }
 
   async cancel() {
-    await this.modalController.dismiss();
+    await this.popoverController.dismiss();
     if (!(this.dataService.$healthcheck.loan.length>0)) {
       this.route.navigateByUrl('/sidebar/healthcheck')
     }
@@ -218,7 +218,7 @@ export class HealthcheckLoanModalComponent implements OnInit {
 
   async skip() {
     this.route.navigateByUrl('/sidebar/healthcheck-confirm')
-    await this.modalController.dismiss();
+    await this.popoverController.dismiss();
   }
 
 }

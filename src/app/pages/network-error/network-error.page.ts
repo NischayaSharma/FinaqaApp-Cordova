@@ -14,9 +14,4 @@ export class NetworkErrorPage implements OnInit {
 
   ngOnInit() {
   }
-
-  retry() {
-    this.util.checkNetwork('/login');
-  }
-
 }

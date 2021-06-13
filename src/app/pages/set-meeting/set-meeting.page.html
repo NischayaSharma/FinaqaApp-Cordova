@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="dateSelect">
-                    <ion-datetime [min]="minTime" [max]="maxTime" [(ngModel)]="slot.meetings.meetingTime" placeholder="Enter Time" mode="ios" displayFormat="HH:mm"></ion-datetime>
+                    <ion-datetime min="09:00" max="18:00" [(ngModel)]="slot.meetings.meetingTime" placeholder="Enter Time" mode="ios" displayFormat="HH:mm"></ion-datetime>
                 </div>
             </div>
 
