@@ -1,18 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'moment';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
-import { File, FileSystem } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { FileLikeObject, FileUploader } from 'ng2-file-upload';
 import { LoadingModalComponent } from 'src/app/components/loading-modal/loading-modal.component';
 import { MeetingModalComponent } from 'src/app/components/meeting-modal/meeting-modal.component';
 import { Dropdown } from 'src/app/services/dtos.service';
-import { PopoverComponent } from 'src/app/components/popover/popover.component';
 
 const MIME_TYPES = {
 '.123' : 'application/vnd.lotus-1-2-3',
@@ -1019,6 +1018,7 @@ export class DiscussionPage implements OnInit {
   meetings:Dropdown[] = [];
   hasMeetings = false;
   response = {lines: [], links:""};
+  meetingText = ""
 
   constructor( 
     private route:ActivatedRoute,
@@ -1030,6 +1030,7 @@ export class DiscussionPage implements OnInit {
     private file: File,
     private modalController: ModalController,
     private popoverController:PopoverController,
+    private alertController:AlertController,
   ) { }
 
   ionViewDidEnter() {
@@ -1069,11 +1070,12 @@ export class DiscussionPage implements OnInit {
     var files = this.getFiles();
     console.log(files);
     var formData = new FormData();
+    console.log(this.meetingText === "" ? this.reply : this.reply + "<br><br>" + this.meetingText);
     formData.append('userId', this.auth.$loginDetails.userId.toString())
     formData.append('password', this.auth.$loginDetails.password)
     formData.append('loginType', this.auth.$loginDetails.loginType.toString())
     formData.append('queryId', this.queryId)
-    formData.append('answerText', this.reply)
+    formData.append('answerText', this.meetingText===""? this.reply : this.reply+"<br><br>"+this.meetingText)
     files.forEach( file => {
       formData.append('data', file.rawFile, file.name)
     })
@@ -1103,6 +1105,7 @@ export class DiscussionPage implements OnInit {
   }
 
   formatData(message:string) {
+    console.log(message != '');
     this.response.lines = message.split('<br>')
     this.response.lines.forEach(line => {
       if(line.startsWith('Link: ')) {
@@ -1110,7 +1113,6 @@ export class DiscussionPage implements OnInit {
       }
     })
     this.response.links = message.split('###')[1]
-    console.log(this.response);
   }
 
   checkUrl(message:string){
@@ -1118,7 +1120,6 @@ export class DiscussionPage implements OnInit {
   }
 
   meetingGrid(meetings) {
-    console.log(meetings.unshift({ meetingDate: 'Date', meetingTime: 'Time', meetingDuration: 'Duration' }));
     return meetings.unshift({ meetingDate: 'Date', meetingTime: 'Time', meetingDuration: 'Duration'})
   }
 
@@ -1131,15 +1132,11 @@ export class DiscussionPage implements OnInit {
       var date = this.formatDate(element.meetingDate)
       var time = element.meetingStartTime
       var text = "Date:" + date + ", Time:" + time
-      console.log(date + " " + time);
       
       dateDate = moment(date + " " + time).format();
-      console.log("TimeStamp ==> ", moment(date + " " + time).format())
-      // console.log(moment(date+'T'+time).format());
       this.meetings.push({ value: dateDate, text: text })
       counter += 1
     });
-    console.log("Meetings ==> ", this.meetings);
   }
 
   async sendMeetLink() {
@@ -1156,8 +1153,7 @@ export class DiscussionPage implements OnInit {
         console.log(data);
         if(data.data != undefined) {
           var text = "Your Meeting is scheduled.<br>Meeting Details: <br>Time: " + moment(data.data.meetTime).format('hh:MM a') + "<br>Date: " + moment(data.data.meetTime).format('DD,MMM YYYY') + "<br>Link: ###" + data.data.meetLink + "###"
-          this.reply = text;
-          this.send();
+          this.meetingText = text;
         }
       })
   }
@@ -1188,7 +1184,7 @@ export class DiscussionPage implements OnInit {
 
   }
 
-  public uploader: FileUploader = new FileUploader({});
+  public uploader: FileUploader;
 
   public onFileSelected(event) {
     const file: File = event[0];
@@ -1206,7 +1202,51 @@ export class DiscussionPage implements OnInit {
     document.getElementById('fileInput').click();
   }
 
+  openFabList() {
+    document.getElementById('ion-fab').click();
+  }
+
   ngOnInit() {
+    var maxFileSize = 30 * 1024 * 1024;
+    this.uploader = new FileUploader({
+      queueLimit: 1,
+      maxFileSize: maxFileSize,
+    });
+    this.uploader.onWhenAddingFileFailed = async (item, filter) => {
+      let message = '';
+      console.log("Error => ",filter.name);
+      
+      switch (filter.name) {
+        case 'fileSize':
+          message = 'Warning ! \nThe uploaded file \"' + item.name + '\" is ' + this.formatBytes(item.size) + ', this exceeds the maximum allowed size of ' + this.formatBytes(maxFileSize);
+          break;
+        case 'queueLimit':
+          message = 'Sorry, you can only upload one file.'
+          break;
+        default:
+          message = 'Error trying to upload file ' + item.name;
+          break;
+      }
+      var alert  = await this.alertController.create({
+        cssClass: 'alert-class',
+        header: 'Error',
+        message: message,
+        buttons: [
+          {
+            text: 'Okay!'
+          }
+        ]
+      })
+      alert.present();
+    };
+  }
+  formatBytes(bytes, decimals?) {
+    if (bytes == 0) return '0 Bytes';
+    const k = 1024,
+      dm = decimals || 2,
+      sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+      i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
 }

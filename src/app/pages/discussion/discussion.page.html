@@ -3,7 +3,7 @@
 <ion-content>
   <div *ngFor="let message of messages" class="content">
 
-    <div [class]=" message.isMyReply? 'chatUser':'chatCons'" >
+    <div [class]=" message.isMyReply? 'chatUser':'chatCons'"  *ngIf="message.answerText != '' || message.answerText != ' ' ">
       {{ formatData(message.answerText=='Google meet meeting scheduled'? 'Online Meet Scheduled' : message.answerText) }} 
       <div *ngFor="let line of response.lines">
         {{ line }}<br *ngIf="!(response.lines.indexOf(line) == response.lines.length-1)">
@@ -74,31 +74,34 @@
     </table>
 
   </div>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isMyReplyTurn && !isClosed">
-    <ion-fab-button>
-      <ion-icon style="font-size: x-large;" name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="start">
-      <ion-fab-button (click)="inputFile()">
-        <ion-icon color="primary" style="font-size: x-large;" name="attach"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button (click)="sendMeetLink()" *ngIf="hasMeetings && !auth.$isClient">
-        <ion-icon color="primary" style="font-size: x-large;" name="alarm"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 </ion-content>
+
+<ion-fab style="bottom: 0; left: 0;" slot="fixed" *ngIf="isMyReplyTurn && !isClosed">
+  <ion-fab-button size="small" *ngIf="!(hasMeetings && !auth.$isClient)" (click)="inputFile()">
+    <ion-icon style="font-size: x-large;" name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button size="small" *ngIf="hasMeetings && !auth.$isClient">
+    <ion-icon style="font-size: x-large;" name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list *ngIf="hasMeetings && !auth.$isClient" side="top">
+    <ion-fab-button (click)="inputFile()">
+      <ion-icon color="primary" style="font-size: x-large;" name="attach"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="sendMeetLink()" *ngIf="hasMeetings && !auth.$isClient">
+      <ion-icon color="primary" style="font-size: x-large;" name="alarm"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
 
 <ion-footer *ngIf="isMyReplyTurn && !isClosed">
   <input ng2FileSelect id="fileInput" type="file" [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
   <ion-toolbar>
-    <!-- <ion-buttons slot="start">
-      <ion-button (click)="inputFile()" size="large" class="buttonText">
+    <ion-buttons slot="start">
+      <ion-button size="large" class="buttonText">
         <ion-icon name="attach-outline" color="primary"></ion-icon>
       </ion-button>
-    </ion-buttons> -->
-    <ion-item style="--border-color: var(--ion-color-primary); margin-bottom: 3%; --padding-start: 0; margin-left: 2%;">
+    </ion-buttons>
+    <ion-item style="--border-color: var(--ion-color-primary); margin-bottom: 3%; --padding-start: 0; margin-left: 3%;">
       <ion-input [(ngModel)]="reply"></ion-input>
     </ion-item>
     <ion-buttons slot="end">

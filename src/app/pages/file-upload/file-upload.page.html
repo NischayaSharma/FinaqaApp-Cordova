@@ -40,10 +40,10 @@
   <ion-toolbar>
     <div style="display: flex; margin-left: 2%; margin-right: 2%;">
       <div style="width: 100%;">
-        <ion-button style="font-size: larger; --border-radius: 15px; margin-left: 2%;" (click)="submit(true)" expand="block" fill="outline" class="buttonText">Skip</ion-button>
+        <ion-button (click)="submit(true)" expand="block" fill="outline" class="buttonText footerDoubleButtonLeft">Skip</ion-button>
       </div>
       <div style="width: 100%;">
-        <ion-button style="font-size: larger; --border-radius: 15px; margin-right: 2%;" [disabled]="getFiles().length==0" expand="block" class="buttonText" (click)="submit(false)">Next</ion-button>
+        <ion-button [disabled]="getFiles().length==0" expand="block" class="buttonText footerDoubleButtonRight" (click)="submit(false)">Next</ion-button>
       </div>
     </div>
   </ion-toolbar>

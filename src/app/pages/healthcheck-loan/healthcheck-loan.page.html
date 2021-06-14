@@ -2,7 +2,7 @@
 
 <ion-content>
   <div>
-    <ion-button style="--border-radius: 15px;" expand="block" class="buttonText addMoreButton" (click)="presentModal()">
+    <ion-button style="--border-radius: 15px;" expand="block" class="buttonText addMoreButton" (click)="presentPopover()">
       <div style="width:100%;text-align: left;">Add More</div>
       <div>
         <ion-icon name="add"></ion-icon>
@@ -12,5 +12,5 @@
   </div>
 </ion-content>
 <ion-footer>
-  <ion-button style="--border-radius: 15px; margin: 2%;" class="buttonText" routerLink="/sidebar/healthcheck-confirm" expand="block" >Next</ion-button>
+  <ion-button size="large" class="buttonText footerButton" routerLink="/sidebar/healthcheck-confirm" expand="block" >Next</ion-button>
 </ion-footer>

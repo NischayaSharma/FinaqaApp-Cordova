@@ -9,11 +9,11 @@
 <ion-footer>
   <div class="buttonContainer hcBtns">
     <div class="btn">
-      <ion-button style="--border-radius: 15px;" routerLink="/sidebar/healthcheck-confirm" (click)="submit()" class="buttonText"
+      <ion-button routerLink="/sidebar/healthcheck-confirm" (click)="submit()" class="buttonText footerDoubleButtonLeft"
         type="submit" expand="block" fill="outline" [disabled]="!healthcheckForm.valid">skip</ion-button>
     </div>
     <div class="btn">
-      <ion-button style="--border-radius: 15px;" routerLink="/sidebar/healthcheck-loan" (click)="submit()" class="buttonText" type="submit"
+      <ion-button routerLink="/sidebar/healthcheck-loan" (click)="submit()" class="buttonText footerDoubleButtonRight" type="submit"
         expand="block" [disabled]="!healthcheckForm.valid">next</ion-button>
     </div>
   </div>

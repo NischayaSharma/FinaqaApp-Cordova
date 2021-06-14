@@ -107,3 +107,19 @@
     --button-color: var(--ion-color-dark);
     max-height: 40%;
 }
+
+.footerButton {
+    margin: 2%;
+    font-size: larger;
+    --border-radius: 15px;
+}
+.footerDoubleButtonLeft {
+    margin-left: 2%;
+    font-size: larger;
+    --border-radius: 15px;
+}
+.footerDoubleButtonRight {
+    margin-right: 2%;
+    font-size: larger;
+    --border-radius: 15px;
+}

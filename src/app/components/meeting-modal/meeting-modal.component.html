@@ -2,10 +2,10 @@
   <app-form [formFields]="formFields" [formGroup]="setMeetingForm" labelColor="primary"></app-form>
   <div style="display: flex;">
     <div style="width: 100%;">
-      <ion-button class="buttonText" fill="outline" size="large" expand="block" style=" --border-radius: 15px; margin-top: 2%;" (click)="cancel()">Cancel</ion-button>
+      <ion-button class="buttonText" fill="outline" expand="block" style=" --border-radius: 15px; margin-top: 2%;" (click)="cancel()">Cancel</ion-button>
     </div>
     <div style="width: 100%;">
-      <ion-button [disabled]="!setMeetingForm.valid" class="buttonText" size="large" expand="block" style=" --border-radius: 15px; margin-top: 2%;" (click)="sendLink()">Okay</ion-button>
+      <ion-button [disabled]="!setMeetingForm.valid" class="buttonText" expand="block" style=" --border-radius: 15px; margin-top: 2%;" (click)="sendLink()">Okay</ion-button>
     </div>
   </div>
 </ion-content>
